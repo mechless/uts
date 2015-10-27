@@ -36,9 +36,9 @@ public class UTS_Client {
             Handler tr = new Handler(is);
             Thread t = new Thread(tr);
             t.start();
-            
+            System.out.println("Username: ");
+                
             while(true){
-                System.out.println("Username: ");
                 BufferedReader br = new BufferedReader (new InputStreamReader(System.in));
                 String msg = br.readLine();
                 os.write(msg.getBytes());
