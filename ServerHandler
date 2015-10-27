@@ -43,6 +43,9 @@ public class ServerHandler implements Runnable {
                 strbuf = new String(buf);
                 strbuf = strbuf.trim();
                 System.out.println(new String(buf));
+                if("5111100101".equals(strbuf)){
+                    System.out.println("Logged On");
+                }
                 this.server.sendToAll(strbuf);
             }
             
