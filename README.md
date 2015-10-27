@@ -1,3 +1,1 @@
 # uts
-file masih dalam bentuk copy paste tanpa editing...
-mohon maaf
