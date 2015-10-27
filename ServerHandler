@@ -1,0 +1,56 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package uts;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class ServerHandler implements Runnable {
+    private Socket socket;
+    private InputStream is;
+    private OutputStream os;
+    private UTS_Server server;        
+    
+    public ServerHandler(Socket socket, UTS_Server server) throws IOException {
+        this.socket = socket;
+        this.is = socket.getInputStream();
+        this.os = socket.getOutputStream();
+        this.server = server;    
+    }
+    
+    public void send(String message) throws IOException{
+        this.os.write(message.getBytes());
+        this.os.flush();
+    }
+    
+    public void run() {
+        try {
+            System.out.println("Klien baru datang ....");
+            
+            byte[] buf = new byte[50];
+            String strbuf = new String(buf);
+            
+            while(!strbuf.equals("END")) {
+                buf = new byte[50];
+                this.is.read(buf);
+                strbuf = new String(buf);
+                strbuf = strbuf.trim();
+                System.out.println(new String(buf));
+                this.server.sendToAll(strbuf);
+            }
+            
+            os.close();
+            is.close();
+            socket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(ServerHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+}
