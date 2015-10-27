@@ -1,0 +1,43 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package uts;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author Mechless
+ */
+public class Handler implements Runnable {
+    private InputStream is;
+    
+    public Handler(InputStream is){
+        this.is = is;
+    }
+    
+    @Override
+    public void run(){
+        int len;
+        byte[] buf;
+        
+                while(true) {
+            try {
+                buf = new byte[10];
+                len = is.read(buf);
+                if(len == -1) {
+                    break;
+                }
+                
+                System.out.print(new String(buf));
+            } catch (IOException ex) {
+                Logger.getLogger(Handler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                }
+    }
+}
