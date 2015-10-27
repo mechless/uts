@@ -10,6 +10,7 @@ import java.net.UnknownHostException;
 
 /**
  * A Simple Socket client that connects to our socket server
+ * @author faheem
  *
  */
 public class UTS_Client {
@@ -30,21 +31,13 @@ public class UTS_Client {
     }
 
     public void readResponse() throws IOException{
-       String userInput;
-       BufferedReader stdIn = new BufferedReader(new InputStreamReader(socketClient.getInputStream()));
+        String userInput;
+        BufferedReader stdIn = new BufferedReader(new InputStreamReader(socketClient.getInputStream()));
 
-       System.out.print("RESPONSE FROM SERVER:");
-       while ((userInput = stdIn.readLine()) != null) {
-           System.out.println(userInput);
-       }
-    }
-    
-    public void askForTime(String message) throws IOException{
-    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socketClient.getOutputStream()));
-       writer.write(message);
-       //writer.write("TIME?");
-       writer.newLine();
-       writer.flush();
+        System.out.println("Response from server:");
+        while ((userInput = stdIn.readLine()) != null) {
+            System.out.println(userInput);
+        }
     }
 
     public static void main(String arg[]){
@@ -53,12 +46,9 @@ public class UTS_Client {
         try {
             //trying to establish connection to the server
             client.connect();
-            String message = null;
-            //asking server for time
-            client.askForTime(message);
-            //waiting to read response from server
+            //if successful, read response from server
             client.readResponse();
-            
+
         } catch (UnknownHostException e) {
             System.err.println("Host unknown. Cannot establish connection");
         } catch (IOException e) {
