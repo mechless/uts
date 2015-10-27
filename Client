@@ -38,6 +38,7 @@ public class UTS_Client {
             t.start();
             
             while(true){
+                System.out.println("Username: ");
                 BufferedReader br = new BufferedReader (new InputStreamReader(System.in));
                 String msg = br.readLine();
                 os.write(msg.getBytes());
